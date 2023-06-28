@@ -1,0 +1,20 @@
+<template>
+    <lightning-card>
+        <template if:true={recData}>
+            <lightning-datatable
+                title="Indirect Accounts"
+                key-field="Id"
+                data={recData}
+                columns={columns}
+                sorted-direction={sortDirection}
+                sorted-by={sortedBy}
+                onsort={updateColumnSorting}
+            >
+           </lightning-datatable>
+        {text}
+        </template>
+        <template if:true={errors}>
+            <p>{errors}</p>
+        </template>
+    </lightning-card>
+</template>

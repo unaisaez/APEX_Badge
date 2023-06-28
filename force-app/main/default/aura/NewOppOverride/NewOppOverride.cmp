@@ -1,0 +1,24 @@
+<aura:component implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="recordId" type="Id"></aura:attribute>
+
+    <lightning:card title="New Opportunity" class="slds-var-m-around_xx-large slds-var-p-around_xx-large">
+        <aura:if isTrue="{!v.recordId}">
+            <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="Opportunity"></lightning:recordViewForm>
+            <aura:set attribute="else">
+                <lightning:recordEditForm objectApiName="Opportunity" recordId="{!v.recordId}" onsuccess="{!c.handleSuccess}" onload="{!c.handleLoad}">
+                    <!-- the messages component is for error messages -->
+                    <lightning:messages />
+                    <lightning:notificationsLibrary aura:id="notifLib"/>
+                    
+                    <lightning:inputField aura:id="OppName" fieldName="Name" />
+                    <lightning:inputField aura:id="StageName" fieldName="StageName" />
+                    <lightning:inputField aura:id="CloseDate" fieldName="CloseDate" />
+                    
+                    <div class="slds-var-m-top_medium">
+                        <lightning:button variant="brand" type="submit" name="save" label="Save" />
+                    </div>
+                </lightning:recordEditForm>
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+</aura:component>

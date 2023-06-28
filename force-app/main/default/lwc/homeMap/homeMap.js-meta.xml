@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__HomePage</target>
+         <target>lightning__RecordPage</target>
+    </targets>
+     <targetConfigs>
+        <targetConfig targets="lightning__HomePage">
+            <property label="Enter the zoom level" name="zoomLevel" type="Integer" min="5" max="20" required="true" default="12"/> 
+        </targetConfig>
+     </targetConfigs>
+</LightningComponentBundle>

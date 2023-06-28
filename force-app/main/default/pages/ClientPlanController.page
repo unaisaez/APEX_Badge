@@ -1,0 +1,78 @@
+<apex:page controller="ClientPlanController" sidebar="false" showHeader="false">
+    <apex:includeLightning/>
+
+    <!--renderAs="pdf"-->
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+            <style>
+                @page {
+                    size: a4 portrait;
+                }
+            </style>
+        </head>
+
+        <script>
+            $Lightning.use("c:VFContainerApp", function() {
+              $Lightning.createComponent("c:homeMap",
+                  {recordId: document.getElementById('hidden').value},
+                  "LWCPlaceHolder",
+                  function(cmp) {
+                    //logic to render in the pdf
+                  }
+              );
+            });
+        </script>
+
+        <body>
+
+            <apex:form>
+                <apex:commandButton value="Attach Plan to account" action="{!savePDF}"></apex:commandButton>
+            </apex:form>
+            
+            <input type="hidden" id="hidden" value="{!recordId}"/>
+            
+            <apex:pageBlock title="Account information">
+                <apex:pageBlockSection title="Account">
+                    <apex:pageBlockTable value="{!accList}" var="acc" border="2">
+                        <apex:column value="{!acc.Id}"></apex:column>
+                        <apex:column value="{!acc.Name}"></apex:column>
+                    
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                
+
+                <apex:pageBlockSection title="Contacts">
+                    <apex:pageBlockTable value="{!ctcList}" var="ctc" border="2">
+                        <apex:column value="{!ctc.Id}"></apex:column>
+                        <apex:column value="{!ctc.Name}"></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Opportunities">
+                    <apex:pageBlockTable value="{!oppList}" var="opp" border="2">
+                        <apex:column value="{!opp.Id}"></apex:column>
+                        <apex:column value="{!opp.Name}"></apex:column>
+                        <apex:column value="{!opp.amount}"></apex:column>
+                    </apex:pageBlockTable>
+                    <BR/>
+                    <apex:outputText rendered="true" title="Total amount" label="TOTAL AMOUNT" value="{!totalamount}"></apex:outputText>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Entitlements">
+                    <apex:pageBlockTable value="{!entList}" var="ent" border="2">
+                        <apex:column value="{!ent.Id}"></apex:column>
+                        <apex:column value="{!ent.Name}"></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Map">
+                    <div id="LWCPlaceHolder"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            
+        </body>
+        
+    </html>
+    
+</apex:page>
